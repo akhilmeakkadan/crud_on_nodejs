@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	 <link rel='stylesheet' href='/stylesheets/style.css' />
+	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+</head>
+<body>
+	<div class="row" style="margin:10px;">
+		<div class="container" >
+			<div class="row">
+				<% if(sucess_message.length){ %>
+				<div class="col-md-12">
+					<div class="alert alert-success" role="alert">
+						<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+					    <%= sucess_message %>
+					</div>
+				</div>
+				<% } %>
+				<% if(error_message.length){ %>
+				<div class="col-md-12">
+					<div class="alert alert-danger" role="alert">
+						<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      					<%= error_message %>
+					</div>
+				</div>
+				<% } %>
+				<div class="col-md-8"><h3>Product List</h3></div>
+				<div class="col-md-4">
+					<a href="/create-product"><button type="button" class="btn btn-success float-right" value="">Create a product</button></a>
+				</div>
+			</div>
+			<table class="table" style=" border: 1px solid #666;" id="ProductTable">
+				<thead>
+				  <tr>
+				    <th scope="col">#</th>
+				    <th scope="col">Name</th>
+				    <th scope="col">Price</th>
+				    <th scope="col">Weight</th>
+				    <th scope="col">Actions</th>
+				  </tr>
+				</thead>
+					<tbody>
+					  <% if(data.length){
+					 
+					  for(var i = 0; i< data.length; i++) {%>  
+					  <tr>
+					    <th scope="row"><%= (i+1) %></th>
+					    <td><%= data[i].name%></td>
+					    <td><%= data[i].price%></td>
+					    <td><%= data[i].weight%></td>
+					    <td>
+					    	<a href="/edit-product/<%= data[i]._id%>"><button type="button" class="btn btn-primary">Edit</button></a>
+					    	<a href="/delete-product/<%= data[i]._id%>"><button type="button" class="btn btn-danger" value="">Delete</button></a>
+					    </td>
+					  </tr>
+					  <% }
+					           
+					   }else{ %>
+					       <tr>
+					          <td colspan="4">No user</td>
+					       </tr>
+					    <% } %>    
+					  
+					</tbody>
+			</table>
+		</div>
+	</div>
+	
+</body>
+</html>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script type="text/javascript" src="//cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript">
+	let table = new DataTable('#ProductTable');
+</script>
